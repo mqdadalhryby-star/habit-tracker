@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ai-builder-studio
+    runtime: docker
+    dockerfilePath: ./studio/Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /api/status
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: HOST
+        value: "0.0.0.0"
+      - key: MINIMAX_API_KEY
+        sync: false

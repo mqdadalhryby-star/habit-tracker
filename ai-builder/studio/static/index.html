@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>منصة بناء الأدوات — اكتب أمراً واحصل على برنامج</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">⌘</span>
+      <div>
+        <h1>منصة بناء الأدوات</h1>
+        <p class="tagline">اكتب أمراً نصياً ← يُولَّد مشروع كامل يعمل</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="llm-badge" class="badge badge-muted">جارٍ الفحص…</span>
+      <button id="settings-btn" class="ghost-btn" type="button">⚙ الإعدادات</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar">
+      <section class="card">
+        <h2 class="card-title">سجل الأوامر</h2>
+        <ul id="history-list" class="history-list"><li class="muted">لا يوجد سجل بعد.</li></ul>
+      </section>
+      <section class="card">
+        <h2 class="card-title">المشاريع المولَّدة</h2>
+        <ul id="projects-list" class="projects-list"><li class="muted">لا يوجد بعد.</li></ul>
+      </section>
+    </aside>
+
+    <!-- المحتوى -->
+    <section class="content">
+      <!-- وحدة الأوامر -->
+      <div class="card console-card">
+        <label class="field-label" for="command">الأمر</label>
+        <textarea id="command" rows="3" placeholder="مثال: أنشئ لي أداة سطر أوامر تحوّل الحروف إلى حروف كبيرة وتزيل التكرار من الملفات"></textarea>
+
+        <div class="controls">
+          <div class="control">
+            <label class="field-label" for="kind">نوع المشروع</label>
+            <select id="kind">
+              <option value="">تلقائي (النموذج يقرّر)</option>
+            </select>
+          </div>
+          <div class="control">
+            <label class="field-label" for="provider">النموذج اللغوي</label>
+            <select id="provider">
+              <option value="auto">تلقائي</option>
+              <option value="minimax">MiniMax</option>
+              <option value="openai">OpenAI</option>
+              <option value="none">المحرك المحلي فقط</option>
+            </select>
+          </div>
+          <div class="control check-control">
+            <label class="switch">
+              <input type="checkbox" id="verify" checked>
+              <span>تشغيل اختبارات المشروع بعد التوليد</span>
+            </label>
+          </div>
+          <button id="build-btn" class="primary-btn" type="button">
+            <span class="btn-label">⚡ بناء المشروع</span>
+            <span class="spinner" hidden></span>
+          </button>
+        </div>
+
+        <div class="examples">
+          <span class="muted">أمثلة:</span>
+          <button class="chip" type="button" data-example="أنشئ لي أداة سطر أوامر تحوّل الحروف إلى حروف كبيرة وتزيل التكرار">أداة CLI</button>
+          <button class="chip" type="button" data-example="أنشئ لي تطبيق ويب لمتابعة العادات اليومية">تطبيق ويب</button>
+          <button class="chip" type="button" data-example="أنشئ لي REST API لإدارة الطلبات مع التوثيق">REST API</button>
+          <button class="chip" type="button" data-example="أنشئ لي سكربت أتمتة للنسخ الاحتياطي من مجلد">سكربت أتمتة</button>
+          <button class="chip" type="button" data-example="أنشئ لي أداة بيانات تنظف ملف CSV وتنتج تقريراً">أداة بيانات</button>
+        </div>
+      </div>
+
+      <!-- النتيجة -->
+      <div id="result" class="card result-card" hidden>
+        <div class="result-head">
+          <div>
+            <h2 id="result-title">—</h2>
+            <p id="result-sub" class="muted">—</p>
+          </div>
+          <div class="result-actions">
+            <button id="download-btn" class="ghost-btn" type="button">⬇ تحميل ZIP</button>
+            <button id="copy-btn" class="ghost-btn" type="button">⧉ نسخ الأمر</button>
+          </div>
+        </div>
+
+        <div id="verify-row" class="verify-row"></div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="files" type="button">الملفات</button>
+          <button class="tab" data-tab="run" type="button">التشغيل</button>
+          <button class="tab" data-tab="preview" type="button" id="preview-tab" hidden>معاينة</button>
+        </div>
+
+        <div id="tab-files" class="tab-panel active">
+          <div class="file-layout">
+            <ul id="file-tree" class="file-tree"></ul>
+            <div class="code-wrap">
+              <div class="code-head">
+                <span id="code-path" class="muted">اختر ملفاً لعرض محتواه</span>
+                <button id="copy-code" class="ghost-btn small" type="button">نسخ</button>
+              </div>
+              <pre id="code-view" class="code-view"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-run" class="tab-panel">
+          <pre id="run-view" class="code-view"></pre>
+        </div>
+
+        <div id="tab-preview" class="tab-panel">
+          <iframe id="preview-frame" class="preview-frame" title="معاينة المشروع"></iframe>
+        </div>
+      </div>
+
+      <div id="placeholder" class="card placeholder">
+        <div class="ph-icon">🛠</div>
+        <h3>المنصة جاهزة</h3>
+        <p class="muted">اكتب أمراً في الأعلى ثم اضغط «بناء المشروع». ستظهر هنا خطة التنفيذ والملفات المولَّدة ونتيجة تشغيل الاختبارات.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- نافذة الإعدادات -->
+  <div id="settings-modal" class="modal" hidden>
+    <div class="modal-card">
+      <h2>إعدادات النموذج اللغوي</h2>
+      <p class="muted">الصق مفتاح MiniMax (اختياري) لتفعيل التخطيط الذكي. يُحفظ المفتاح محلياً في <code>~/.config/ai-builder/config.json</code> بصلاحية 600 ولا يُطبع في أي مخرجات.</p>
+      <label class="field-label" for="api-key">مفتاح MiniMax API</label>
+      <input id="api-key" type="password" placeholder="sk-..." autocomplete="off">
+      <label class="field-label" for="model-name">اسم النموذج</label>
+      <input id="model-name" type="text" placeholder="MiniMax-M3.1-Flash">
+      <div class="modal-actions">
+        <button id="save-settings" class="primary-btn" type="button">حفظ</button>
+        <button id="close-settings" class="ghost-btn" type="button">إغلاق</button>
+      </div>
+      <p id="settings-msg" class="muted"></p>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
