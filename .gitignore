@@ -1,0 +1,17 @@
+# بايثون
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# مخرجات مولّد المشاريع
+ai-builder/generated/
+ai-builder/demo/
+ai-builder/**/out/
+
+# ملفات النظام
+.DS_Store
+Thumbs.db
+*.log

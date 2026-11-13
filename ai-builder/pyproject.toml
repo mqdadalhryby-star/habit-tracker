@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-builder"
+version = "1.0.0"
+description = "نموذج ذكاء اصطناعي يحوّل الطلب النصي إلى مشروع قابل للتشغيل (CLI / ويب / API / سكربت / بيانات)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+ai-builder = "ai_builder.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["ai_builder*"]
