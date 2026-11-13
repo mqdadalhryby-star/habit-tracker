@@ -1,15 +1,16 @@
+# نشر المنصة على Render — إعداد Python أصلي (بلا Docker: أسرع وأقل احتمالاً للفشل)
 services:
   - type: web
     name: ai-builder-studio
-    runtime: docker
-    dockerfilePath: ./ai-builder/studio/Dockerfile
-    dockerContext: ./ai-builder
+    runtime: python
     plan: free
+    rootDir: ai-builder
+    buildCommand: echo "no dependencies — stdlib only"
+    startCommand: python3 studio/server.py
     healthCheckPath: /api/status
+    autoDeploy: true
     envVars:
-      - key: PORT
-        value: "8000"
       - key: HOST
-        value: "0.0.0.0"
+        value: 0.0.0.0
       - key: MINIMAX_API_KEY
         sync: false
