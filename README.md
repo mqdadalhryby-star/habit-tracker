@@ -75,6 +75,6 @@ GITHUB_TOKEN=<pat> bash scripts/publish-gh-pages.sh
 
 - `main` = المصدر الأساسي (التطبيق + نموذج `ai-builder`).
 - `gh-pages` = ملفات الموقع الثابتة فقط التي يقدّمها GitHub Pages.
-- `.github/workflows/ci.yml` = ي��غّي اختبارات `ai-builder` عند كل دفع إلى `main`.
+- `.github/workflows/ci.yml` = يُشغِّل اختبارات `ai-builder` عند كل دفع إلى `main`.
 
 > ملاحظة: فرع `gh-pages` يُحدَّث من خارج GitHub Actions لأن إنشاء موقع Pages عبر الـ API يتطلب صلاحية إدارية على المستودع. إذا فعّلتَ GitHub Actions كمصدر بديل، فاحذف السكربت واستخدم `actions/deploy-pages`.
