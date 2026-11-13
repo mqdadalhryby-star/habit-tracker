@@ -7,7 +7,7 @@ COPY studio/server.py /app/server.py
 COPY studio/static /app/static
 COPY ai_builder /app/ai_builder
 
-ENV PORT=8000
+# Render يحقن PORT تلقائياً (10000 افتراضياً) — لا نفرضه هنا
 ENV HOST=0.0.0.0
 ENV PLATFORM_GENERATED_DIR=/app/generated
 
