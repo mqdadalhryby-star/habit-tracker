@@ -67,11 +67,14 @@ habit-tracker/
 ```
 
 ## النشر على GitHub Pages
-المستودع يحتوي على `/.github/workflows/pages.yml` للنشر التلقائي. بعد الدفع إلى `main`:
-1. من **Settings ← Pages** اختر المصدر: **GitHub Actions** (أو `Deploy from a branch ← main / (root)`).
-2. أول تشغيل للـ workflow ينشر الموقع على `https://<حسابك>.github.io/habit-tracker/`.
+مصدر النشر في هذا المستودع هو **فرع `gh-pages`** (نوع `legacy`)، ويحدّثه السكربت:
+```bash
+GITHUB_TOKEN=<pat> bash scripts/publish-gh-pages.sh
+```
+الموقع المنشور: <https://mqdadalhryby-star.github.io/habit-tracker/>
 
-> ملاحظة: مجلد `ai-builder/` يُنشر أيضاً مع بقية الملفات كملفات ساكنة — لا يؤثر على عمل الموقع.
+- `main` = المصدر الأساسي (التطبيق + نموذج `ai-builder`).
+- `gh-pages` = ملفات الموقع الثابتة فقط التي يقدّمها GitHub Pages.
+- `.github/workflows/ci.yml` = ي��غّي اختبارات `ai-builder` عند كل دفع إلى `main`.
 
-## الترخيص
-MIT — استخدمه وعدّله كما تشاء.
+> ملاحظة: فرع `gh-pages` يُحدَّث من خارج GitHub Actions لأن إنشاء موقع Pages عبر الـ API يتطلب صلاحية إدارية على المستودع. إذا فعّلتَ GitHub Actions كمصدر بديل، فاحذف السكربت واستخدم `actions/deploy-pages`.
