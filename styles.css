@@ -1,0 +1,94 @@
+:root {
+  --bg: #0f1420;
+  --panel: #171e2e;
+  --accent: #4f8cff;
+  --text: #e9eef7;
+  --muted: #8b97ad;
+  --danger: #ff6b6b;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.topbar {
+  padding: 28px 20px 18px;
+  text-align: center;
+  background: linear-gradient(180deg, #1b2438, var(--bg));
+  border-bottom: 1px solid #26324a;
+}
+
+.topbar h1 { margin: 0 0 6px; font-size: 1.6rem; }
+.subtitle { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+.container { max-width: 720px; margin: 0 auto; padding: 20px; }
+
+.entry-form { display: flex; gap: 10px; margin-bottom: 18px; }
+
+.entry-form input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px solid #2c3a55;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.entry-form input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+
+button {
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  transition: filter 0.15s ease;
+}
+
+button:hover { filter: brightness(1.12); }
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.filters { display: flex; gap: 8px; }
+.filters .filter { background: var(--panel); color: var(--muted); padding: 8px 14px; font-size: 0.9rem; }
+.filters .filter.active { background: var(--accent); color: #fff; }
+.counter { color: var(--muted); font-size: 0.9rem; }
+
+.entry-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+
+.entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid #24314a;
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+
+.entry-main { display: flex; align-items: center; gap: 10px; flex: 1; cursor: pointer; }
+.entry-text { overflow-wrap: anywhere; }
+.entry.done .entry-text { text-decoration: line-through; color: var(--muted); }
+.toggle { width: 18px; height: 18px; accent-color: var(--accent); }
+.delete { background: transparent; color: var(--muted); font-size: 1rem; padding: 6px 10px; }
+.delete:hover { color: var(--danger); }
+
+.empty { color: var(--muted); text-align: center; padding: 24px 0; }

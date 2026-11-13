@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تطبيق ويب لمتابعة العادات اليومية</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>تطبيق ويب لمتابعة العادات اليومية</h1>
+    <p class="subtitle">أنشئ لي تطبيق ويب لمتابعة العادات اليومية</p>
+  </header>
+
+  <main class="container">
+    <form id="entry-form" class="entry-form" autocomplete="off">
+      <input id="entry-input" type="text" placeholder="اكتب عنصر جديداً..." required>
+      <button type="submit" id="add-button">إضافة</button>
+    </form>
+
+    <section class="toolbar">
+      <div class="filters" role="group" aria-label="تصفية">
+        <button class="filter active" data-filter="all">الكل</button>
+        <button class="filter" data-filter="active">غير منتهٍ</button>
+        <button class="filter" data-filter="done">منتهٍ</button>
+      </div>
+      <span id="counter" class="counter">0 عنصر</span>
+    </section>
+
+    <ul id="entry-list" class="entry-list" aria-live="polite"></ul>
+    <p id="empty-state" class="empty">لا توجد عناصر بعد — أضف أول عنصر من الأعلى.</p>
+  </main>
+
+  <template id="entry-template">
+    <li class="entry">
+      <label class="entry-main">
+        <input type="checkbox" class="toggle">
+        <span class="entry-text"></span>
+      </label>
+      <button class="delete" type="button" aria-label="حذف">✕</button>
+    </li>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
